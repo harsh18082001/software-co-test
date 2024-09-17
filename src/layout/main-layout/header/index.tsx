@@ -3,18 +3,21 @@ import React, { FC } from 'react'
 import { Button, Input, Layout, Switch } from 'antd';
 import { MenuOutlined, SearchOutlined, BulbOutlined, MoonOutlined, } from '@ant-design/icons';
 
+import { useTranslation } from 'react-i18next';
 import { useWindowSize } from '@uidotdev/usehooks';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from 'src/store';
 import { THEME_MODES, updateTheme } from 'src/store/slices/theme';
 
-import Profile from 'src/layout/main-layout/profile';
+import Profile from 'src/layout/main-layout/header/components/profile';
+import LanguageDropdown from 'src/layout/main-layout/header/components/language-dropdown';
 
 const { Header } = Layout;
 
 const LayoutHeader: FC<any> = ({ borderWithBg, collapsed, setCollapsed }) => {
 
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const { width } = useWindowSize();
     const themeState = useSelector((state: RootState) => state.theme);
@@ -32,11 +35,12 @@ const LayoutHeader: FC<any> = ({ borderWithBg, collapsed, setCollapsed }) => {
                             onClick={() => setCollapsed(!collapsed)}
                             className="w-8 h-8 shrink-0"
                         />
-                        <Input addonBefore={<SearchOutlined />} className='max-w-[300px]' />
+                        <Input addonBefore={<SearchOutlined />} placeholder={t('SEARCH')} className='max-w-[300px]' />
                     </>
                 }
             </div>
             <div className="flex gap-3 items-center">
+                <LanguageDropdown />
                 <Profile />
                 <Switch
                     checked={themeState.mode === THEME_MODES.DARK}

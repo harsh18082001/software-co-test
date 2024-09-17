@@ -1,8 +1,9 @@
 import React from 'react'
 
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Avatar, Dropdown, Menu } from 'antd';
+import { Avatar, Dropdown } from 'antd';
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
 
 import { RootState } from 'src/store';
@@ -11,13 +12,14 @@ import { ItemType } from 'antd/es/menu/interface';
 
 const Profile = () => {
 
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const auth = useSelector((state: RootState) => state.auth);
 
     const menuItems: ItemType[] = [
         {
             key: '1',
-            label: 'Logout',
+            label: t('LOGOUT'),
             icon: <LogoutOutlined />,
             onClick: () => { dispatch(logout()) },
         },
@@ -28,8 +30,8 @@ const Profile = () => {
             <div className="flex items-center space-x-2 cursor-pointer p-1.5 rounded transition-colors">
                 <Avatar size="default" icon={<UserOutlined />} />
                 <div className="hidden md:flex flex-col gap-1">
-                    <div className="font-medium leading-none">{auth?.current_user?.user_name}</div>
-                    <div className="block text-xs leading-none">{auth?.current_user?.email}</div>
+                    <div className="font-medium leading-none max-w-[120px] lg:max-w-[150px] truncate" title={auth?.current_user?.user_name}>{auth?.current_user?.user_name}</div>
+                    <div className="block text-xs leading-none max-w-[120px] lg:max-w-[150px] truncate" title={auth?.current_user?.email}>{auth?.current_user?.email}</div>
                 </div>
             </div>
         </Dropdown>

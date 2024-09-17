@@ -5,6 +5,7 @@ import { ConfigProvider } from "antd";
 
 import { RootState } from "src/store";
 import router from "src/app/router";
+import 'src/translate';
 
 const App = () => {
 

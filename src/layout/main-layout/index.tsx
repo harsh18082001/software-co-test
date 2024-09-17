@@ -37,10 +37,8 @@ const MainLayout: FC = () => {
             <SideBar collapsed={collapsed} borderWithBg={borderWithBg} />
             <Layout>
                 <LayoutHeader borderWithBg={borderWithBg} collapsed={collapsed} setCollapsed={setCollapsed} />
-                <Content className="p-6 overflow-x-hidden overflow-y-auto">
-                    <div style={{ background: colorBgContainer, borderRadius: borderRadiusLG }}>
-                        <Outlet />
-                    </div>
+                <Content className="p-4 overflow-x-hidden overflow-y-auto">
+                    <Outlet />
                 </Content>
             </Layout>
         </Layout>

@@ -1,3 +1,11 @@
+import axios from "axios";
+
+const axiosInstance = axios.create({
+    baseURL: 'https://test-mock-api.vercel.app',
+    timeout: 10000, // 10 seconds
+    headers: { 'Content-Type': 'application/json' }
+});
+
 const genrateId = () => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -11,5 +19,6 @@ const genrateId = () => {
 }
 
 export {
-    genrateId
+    genrateId,
+    axiosInstance
 }

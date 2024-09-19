@@ -6,6 +6,7 @@ const axiosInstance = axios.create({
     headers: { 'Content-Type': 'application/json' }
 });
 
+
 const genrateId = () => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -20,5 +21,5 @@ const genrateId = () => {
 
 export {
     genrateId,
-    axiosInstance
+    axiosInstance,
 }

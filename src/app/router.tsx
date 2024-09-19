@@ -7,6 +7,7 @@ import Login from 'src/pages/login';
 import Dashboard from 'src/pages/dashboard';
 import Estimate from 'src/pages/estimate';
 import Project from 'src/pages/project';
+import ProjectAdd from "src/pages/project/add";
 
 export default createBrowserRouter([
     {
@@ -18,12 +19,13 @@ export default createBrowserRouter([
         ],
     },
     {
-        path: "/",
+        path: "",
         element: <MainLayout />,
         children: [
             { path: "/", element: <Dashboard /> },
             { path: "estimate", element: <Estimate /> },
-            { path: "project", element: <Project /> },
+            { path: 'project', element: <Project />, },
+            { path: "project/add", element: <ProjectAdd /> },
         ],
     },
 ]);

@@ -1,26 +1,36 @@
-import React, { FC } from 'react';
-
-import { ConfigProvider, DatePicker, DatePickerProps, Popover, Radio, Tag, theme } from 'antd';
-import { ReloadOutlined } from '@ant-design/icons'
-
+import React, { CSSProperties, FC } from 'react';
+import { ReloadOutlined } from '@ant-design/icons';
+import { ConfigProvider, DatePicker, Popover, Radio, Tag, theme } from 'antd';
 import FilterIcon from 'src/assets/icons/filter-icon';
 
-const ProjectFilters: FC<any> = ({ columns, data, onToggleCol }) => {
-    const { token: { colorText } } = theme.useToken();
-    const uniqueStatusList = [...new Set(data.map(({ status }: any) => status))];
+interface ProjectFiltersProps {
+    columns: any;
+    data: any;
+    onToggleCol: (key: string, value: boolean) => void;
+    reload: () => void;
+    dateFilterChange: (dates: any) => void;
+    onStatusFilterChange?: (status: string, checked: boolean) => void;
+    selectedStatuses: string[];
+}
 
+const ProjectFilters: FC<ProjectFiltersProps> = ({
+    columns,
+    data,
+    onToggleCol,
+    reload,
+    dateFilterChange,
+    selectedStatuses
+}) => {
+    const uniqueStatusList = [...new Set(data?.map(({ status }: any) => status))];
+
+    const { token: { colorText, colorBorderSecondary } } = theme.useToken();
+    const radioBorder: { style: CSSProperties } = { style: { borderColor: colorBorderSecondary, color: colorText } };
 
     const renderColumnTags = (columns: any) => {
-        return columns.map((column: any) => (
-            <React.Fragment key={column?.key}>
-                <Tag.CheckableTag
-                    checked={!column.hidden}
-                    onChange={(checked) => onToggleCol(column.key, checked)}
-                    className="mr-0"
-                >
-                    {column?.title}
-                </Tag.CheckableTag>
-                {column?.children && renderColumnTags(column.children)}
+        return columns.map(({ key, title, hidden, children }: any) => (
+            <React.Fragment key={key}>
+                <Tag.CheckableTag className="mr-0" checked={!hidden} onChange={(checked) => onToggleCol(key, checked)}>{title}</Tag.CheckableTag>
+                {children && renderColumnTags(children)}
             </React.Fragment>
         ));
     };
@@ -36,50 +46,40 @@ const ProjectFilters: FC<any> = ({ columns, data, onToggleCol }) => {
 
     const statusContent = (
         <div className="w-[310px]">
-            <div className="mb-3">Select Columns</div>
+            <div className="mb-3">Select Status</div>
             <div className="flex flex-wrap gap-1.5">
-                {uniqueStatusList.map((status: any) =>
+                {uniqueStatusList.map((status: any) => (
                     <React.Fragment key={status}>
                         <Tag.CheckableTag
-                            checked={true}
-                        // onChange={(checked) => onToggleCol(column.key, checked)}
-                        // className="mr-0"
+                            checked={selectedStatuses.includes(status)}
+                            className="mr-0"
+                        // onChange={(checked) => onStatusFilterChange(status, checked)}
                         >
                             {status}
                         </Tag.CheckableTag>
-                    </React.Fragment>)}
+                    </React.Fragment>
+                ))}
             </div>
         </div>
     );
 
-    const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-        console.log(date, dateString);
-    };
-
     return (
-        <ConfigProvider
-            wave={{ disabled: true }}
-            theme={{ components: { Radio: { colorPrimary: colorText, colorPrimaryHover: colorText } } }}
-        >
+        <ConfigProvider wave={{ disabled: true }}>
             <Radio.Group className="flex">
-                <Radio.Button className="inline-flex h-12 items-center justify-center py-2 leading-none">
+                <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 leading-none">
                     <FilterIcon />
                 </Radio.Button>
-                <Radio.Button className="inline-flex h-12 items-center justify-center py-2 leading-none">Filter By</Radio.Button>
-                <Radio.Button className="inline-flex h-12 items-center justify-center py-2 leading-none">
-                    <DatePicker bordered={false} onChange={onChange} />
+                <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 leading-none">Filter By</Radio.Button>
+                <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-0 leading-none">
+                    <DatePicker.RangePicker bordered={false} format="DD-MM-YYYY" onChange={dateFilterChange} />
                 </Radio.Button>
-                <Radio.Button className="inline-flex h-12 items-center justify-center py-2 leading-none">
-                    <Popover placement="bottomRight" content={hideColumnsContent} trigger="click">
-                        Hide Columns
-                    </Popover>
-                </Radio.Button>
-                <Radio.Button className="inline-flex h-12 items-center justify-center py-2 leading-none">
-                    <Popover placement="bottomRight" content={statusContent} trigger="click">
-                        Status
-                    </Popover>
-                </Radio.Button>
-                <Radio.Button className="inline-flex h-12 items-center justify-center py-2 leading-none">
+                <Popover placement="bottomRight" content={hideColumnsContent} trigger="click">
+                    <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 leading-none">Hide Columns</Radio.Button>
+                </Popover>
+                <Popover placement="bottomRight" content={statusContent} trigger="click">
+                    <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 leading-none">Status</Radio.Button>
+                </Popover>
+                <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 leading-none before:!w-0" onClick={reload}>
                     <div className="flex gap-1">
                         <ReloadOutlined />
                         Reset Filter

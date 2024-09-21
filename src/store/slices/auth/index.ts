@@ -1,29 +1,21 @@
 import { toast } from 'react-toastify';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { TOASTR_MSGS } from 'src/constants/toast-messages';
 import { genrateId } from 'src/utils';
+import { TOASTR_MSGS } from 'src/constants/toast-messages';
+import { IInitialState, initial_users, IUser } from 'src/constants/initial-users';
 
-interface IUser {
-    id?: string;
-    user_name?: string;
-    email?: string;
-    password?: string;
-}
 
-interface IInitialState {
-    all_users: IUser[],
-    current_user: IUser | null
-}
 
-const localAuth = localStorage.getItem('auth');
-
-const initialState: IInitialState = localAuth ? JSON.parse(localAuth) : { all_users: [], current_user: null };
+const initialState: IInitialState = initial_users;
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
+        setInitialUsers: (state) => {
+            localStorage.setItem('auth', JSON.stringify(state));
+        },
         register: (state, action: PayloadAction<IUser>) => {
             if (!state.all_users.some(({ email }) => email === action.payload.email)) {
                 state.all_users.push({ id: genrateId(), ...action.payload });
@@ -50,5 +42,5 @@ const authSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { register, login, logout } = authSlice.actions;
+export const { setInitialUsers, register, login, logout } = authSlice.actions;
 export default authSlice.reducer

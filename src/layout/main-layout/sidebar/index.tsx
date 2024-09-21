@@ -1,10 +1,9 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { Layout, Menu } from 'antd'
-import { ItemType, MenuItemType } from 'antd/es/menu/interface';
 
 import DashboardIcon from 'src/assets/icons/dashboard-icon';
 import ProjectsIcon from 'src/assets/icons/projects-icon';
@@ -17,29 +16,35 @@ const { Sider } = Layout;
 const SideBar: FC<any> = ({ collapsed, borderWithBg }) => {
 
     const { t } = useTranslation();
-    const navigate = useNavigate();
+    const { pathname } = useLocation();
 
-    const items: ItemType<MenuItemType>[] = [
+    const [defaultSelectedKeys, setDefaultSelectedKeys] = useState<string[]>([]);
+
+    useEffect(() => {
+        setDefaultSelectedKeys([items.map(({ key }) => key).find((key) => pathname.includes(key)) || 'dashboard'])
+    }, []);
+
+    const items = [
         {
             key: 'dashboard',
-            className: '!px-2.5',
+            className: '!px-2.5 flex',
             icon: <DashboardIcon />,
             label: t('DASHBOARD'),
-            onClick: () => navigate('/')
+            href: '/'
         },
         {
             key: 'project',
-            className: '!px-2.5',
+            className: '!px-2.5 flex',
             icon: <ProjectsIcon />,
             label: t('PROJECTS'),
-            onClick: () => navigate('/project')
+            href: '/project'
         },
         {
             key: 'estimate',
-            className: '!px-2.5',
+            className: '!px-2.5 flex',
             icon: <EstimatesIcon />,
             label: t('ESTIMATES'),
-            onClick: () => navigate('/estimate')
+            href: '/estimate'
         },
     ]
 
@@ -51,12 +56,13 @@ const SideBar: FC<any> = ({ collapsed, borderWithBg }) => {
                     : <LogoIcon className="w-full" />
                 }
             </Link>
-            <Menu
-                style={{ borderRight: 0 }}
-                mode="inline"
-                defaultSelectedKeys={['dashboard']}
-                items={items}
-            />
+            {!!defaultSelectedKeys.length && <Menu mode="inline" style={{ borderRight: 0 }} defaultSelectedKeys={defaultSelectedKeys} >
+                {items.map(({ key, icon, label, href, className }) =>
+                    <Menu.Item key={key} className={className} icon={icon}>
+                        <Link to={href}>{label}</Link>
+                    </Menu.Item>
+                )}
+            </Menu>}
         </Sider>
     )
 }

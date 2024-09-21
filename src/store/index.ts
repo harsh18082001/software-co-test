@@ -2,7 +2,7 @@ import { combineReducers, configureStore, createListenerMiddleware, isAnyOf } fr
 
 import { slices } from 'src/store/slices';
 
-import { login, register } from 'src/store/slices/auth';
+import { login, register, setInitialUsers } from 'src/store/slices/auth';
 
 const rootReducer = combineReducers(slices);
 
@@ -15,8 +15,8 @@ const store = configureStore({
 
 listenerMiddleware.startListening({
     matcher: isAnyOf(login, register),
-    effect: async (action, listenerApi) => {
-        localStorage.setItem('auth', JSON.stringify((listenerApi.getState() as RootState)?.auth))
+    effect: async (_, listenerApi) => {
+        localStorage.setItem('auth', JSON.stringify((listenerApi.getState() as RootState).auth))
     },
 });
 
@@ -28,5 +28,6 @@ export type {
     AppDispatch
 }
 
+store.dispatch(setInitialUsers());
 
 export default store;

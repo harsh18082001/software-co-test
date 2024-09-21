@@ -66,20 +66,20 @@ const ProjectFilters: FC<ProjectFiltersProps> = ({
     return (
         <ConfigProvider wave={{ disabled: true }}>
             <Radio.Group className="flex">
-                <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 leading-none">
+                <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 px-3 leading-none">
                     <FilterIcon />
                 </Radio.Button>
-                <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 leading-none">Filter By</Radio.Button>
-                <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-0 leading-none">
+                <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 px-3 leading-none">Filter By</Radio.Button>
+                <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-0 px-3 leading-none">
                     <DatePicker.RangePicker bordered={false} format="DD-MM-YYYY" onChange={dateFilterChange} />
                 </Radio.Button>
                 <Popover placement="bottomRight" content={hideColumnsContent} trigger="click">
-                    <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 leading-none">Hide Columns</Radio.Button>
+                    <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 px-3 leading-none">Hide Columns</Radio.Button>
                 </Popover>
                 <Popover placement="bottomRight" content={statusContent} trigger="click">
-                    <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 leading-none">Status</Radio.Button>
+                    <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 px-3 leading-none">Status</Radio.Button>
                 </Popover>
-                <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 leading-none before:!w-0" onClick={reload}>
+                <Radio.Button {...radioBorder} className="before:!hidden inline-flex h-9 items-center justify-center py-2 px-3 leading-none before:!w-0" onClick={reload}>
                     <div className="flex gap-1">
                         <ReloadOutlined />
                         Reset Filter

@@ -1,14 +1,16 @@
-import { Button, Col, DatePicker, Form, Input, Row, Select, theme, Typography } from 'antd';
+import { useSelector } from 'react-redux';
+
 import { Rule } from 'antd/es/form';
 import { DefaultOptionType } from 'antd/es/select';
 import { SizeType } from 'antd/es/config-provider/SizeContext';
-
-import { useSelector } from 'react-redux';
+import { Button, Col, DatePicker, Form, Input, Row, Select, theme, Typography } from 'antd';
 
 import useFetch from 'src/hooks';
 import { RootState } from 'src/store';
 import { DataType } from 'src/pages/project';
 import { updateData } from 'src/store/slices/project';
+
+import dayjs from 'dayjs'
 
 interface IFormConfig {
     label: string;
@@ -57,7 +59,7 @@ const ProjectAdd = () => {
         },
         {
             label: 'Reference Number',
-            name: 'reference_number',
+            name: 'ref_number',
             rules: [{ required: true }],
             placeholder: 'Enter your reference number',
             type: 'input',
@@ -121,18 +123,18 @@ const ProjectAdd = () => {
             options: users
         },
         {
-            label: 'Contact',
-            name: 'contact',
+            label: 'Staff',
+            name: 'staff',
             rules: [{ required: true }],
-            placeholder: 'Enter your contact',
-            type: 'input',
+            placeholder: 'Select project staff',
+            type: 'select',
             size: 'large',
             options: users
         },
         {
             label: 'Status',
             name: 'status',
-            rules: [{ required: true }, { type: 'email' }],
+            rules: [{ required: true }],
             placeholder: 'Select project status',
             type: 'select',
             size: 'large',
@@ -149,8 +151,8 @@ const ProjectAdd = () => {
         },
     ]
 
-    const onFinish = () => {
-
+    const onFinish = (values: any) => {
+        console.log('Success:', values);
     }
 
     const onFinishFailed = (errorInfo: any) => {
@@ -186,7 +188,7 @@ const ProjectAdd = () => {
                             <Button type="primary" htmlType="submit" size="large" className="w-full max-w-[418px]">Add Now</Button>
                         </Col>
                         <Col lg={8}>
-                            <Button type="primary" htmlType="submit" size="large" className="w-full max-w-[418px]">Cancel</Button>
+                            <Button type="primary" htmlType="reset" size="large" className="w-full max-w-[418px]">Cancel</Button>
                         </Col>
                     </Row>
                 </Form>

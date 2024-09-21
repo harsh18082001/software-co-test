@@ -16,6 +16,7 @@ export interface DataType {
   key?: React.Key;
   created_at: string;
   updated_at: string;
+  due_date: string;
   customer: string;
   ref_number: string;
   project_name: string;
@@ -23,6 +24,10 @@ export interface DataType {
   area_location: string;
   address: string;
   status: string;
+  contact: string;
+  manager: string;
+  staff: string;
+  email: string;
 }
 
 const statusColorMap: { [key: string]: string } = {

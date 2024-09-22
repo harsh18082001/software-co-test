@@ -1,15 +1,14 @@
-import { useSelector } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 
 import { ConfigProvider } from "antd";
 
-import { RootState } from "src/store";
+import { useAppSelector } from "src/store";
 import router from "src/app/router";
 import 'src/translate';
 
 const App = () => {
 
-  const theme = useSelector((state: RootState) => state.theme)
+  const theme = useAppSelector((state) => state.theme)
 
   return (
     <ConfigProvider componentSize="middle" theme={theme.antConfig}>

@@ -56,13 +56,14 @@ const SideBar: FC<any> = ({ collapsed, borderWithBg }) => {
                     : <LogoIcon className="w-full" />
                 }
             </Link>
-            {!!defaultSelectedKeys.length && <Menu mode="inline" style={{ borderRight: 0 }} defaultSelectedKeys={defaultSelectedKeys} >
-                {items.map(({ key, icon, label, href, className }) =>
-                    <Menu.Item key={key} className={className} icon={icon}>
-                        <Link to={href}>{label}</Link>
-                    </Menu.Item>
-                )}
-            </Menu>}
+            {!!defaultSelectedKeys.length &&
+                <Menu mode="inline" style={{ borderRight: 0 }} defaultSelectedKeys={defaultSelectedKeys} >
+                    {items.map(({ key, icon, label, href, className }) =>
+                        <Menu.Item key={key} className={className} icon={icon}>
+                            <Link to={href}>{label}</Link>
+                        </Menu.Item>
+                    )}
+                </Menu>}
         </Sider>
     )
 }

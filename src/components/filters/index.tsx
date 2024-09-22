@@ -3,7 +3,7 @@ import { ReloadOutlined } from '@ant-design/icons';
 import { ConfigProvider, DatePicker, Popover, Radio, Tag, theme } from 'antd';
 import FilterIcon from 'src/assets/icons/filter-icon';
 
-interface ProjectFiltersProps {
+interface FiltersProps {
     columns: any;
     data: any;
     onToggleCol: (key: string, value: boolean) => void;
@@ -13,7 +13,7 @@ interface ProjectFiltersProps {
     selectedStatuses: string[];
 }
 
-const ProjectFilters: FC<ProjectFiltersProps> = ({
+const Filters: FC<FiltersProps> = ({
     columns,
     data,
     onToggleCol,
@@ -90,4 +90,4 @@ const ProjectFilters: FC<ProjectFiltersProps> = ({
     );
 };
 
-export default ProjectFilters;
+export default Filters;

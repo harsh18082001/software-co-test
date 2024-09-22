@@ -1,13 +1,12 @@
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
-import { AxiosRequestConfig } from 'axios';
-import { axiosInstance } from 'src/utils';
+
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
 
-type TUseFetch<T> = [T | null, boolean, Dispatch<SetStateAction<T | null>>, () => void]
+import { axiosInstance } from 'src/utils';
 
-const useFetch = <T>(url: string, options: AxiosRequestConfig<any> | null, updateData: any): TUseFetch<T> => {
-    const dispatch = useDispatch();
+type TUseGet<T> = [T | null, boolean, Dispatch<SetStateAction<T | null>>, () => void]
+
+const useGet = <T>(url: string): TUseGet<T> => {
 
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -18,7 +17,7 @@ const useFetch = <T>(url: string, options: AxiosRequestConfig<any> | null, updat
     const fetchData = async () => {
         setLoading(true);
         try {
-            const response = await axiosInstance(url, options = {});
+            const response = await axiosInstance(url);
             setData(response.data);
         } catch (error: any) {
             toast.error(error);
@@ -31,11 +30,7 @@ const useFetch = <T>(url: string, options: AxiosRequestConfig<any> | null, updat
         fetchData();
     }, [url, reloadKey]);
 
-    useEffect(() => {
-        dispatch(updateData({ data, loading }));
-    }, [data]);
-
     return [data, loading, setData, reload];
 };
 
-export default useFetch;
+export default useGet;

@@ -5,9 +5,9 @@ import { genrateId } from 'src/utils';
 import { TOASTR_MSGS } from 'src/constants/toast-messages';
 import { IInitialState, initial_users, IUser } from 'src/constants/initial-users';
 
+const localAuth = localStorage.getItem('auth');
 
-
-const initialState: IInitialState = initial_users;
+const initialState: IInitialState = localAuth ? JSON.parse(localAuth) : initial_users;
 
 const authSlice = createSlice({
     name: 'auth',

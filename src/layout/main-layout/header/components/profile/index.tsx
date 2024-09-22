@@ -1,20 +1,17 @@
-import React from 'react'
-
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { Avatar, Dropdown } from 'antd';
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
 
-import { RootState } from 'src/store';
+import { useAppDispatch, useAppSelector } from 'src/store';
 import { logout } from 'src/store/slices/auth';
 import { ItemType } from 'antd/es/menu/interface';
 
 const Profile = () => {
 
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const auth = useSelector((state: RootState) => state.auth);
+    const dispatch = useAppDispatch();
+    const auth = useAppSelector((state) => state.auth);
 
     const menuItems: ItemType[] = [
         {

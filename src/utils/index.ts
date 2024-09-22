@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
+import { toast } from "react-toastify";
 
 const axiosInstance = axios.create({
     baseURL: 'https://test-mock-api.vercel.app',
@@ -6,6 +7,16 @@ const axiosInstance = axios.create({
     headers: { 'Content-Type': 'application/json' }
 });
 
+const postData = async (config: AxiosRequestConfig<any>) => {
+    // not throwing error because of demo api (json server) throws error on every post and patch but data operation is done
+    try {
+        const res = await axiosInstance(config);
+        return res;
+    } catch {
+    //     toast.error('Something went wrong :(')
+    //     return null as any;
+    }
+}
 
 const genrateId = () => {
     let result = '';
@@ -22,4 +33,5 @@ const genrateId = () => {
 export {
     genrateId,
     axiosInstance,
+    postData,
 }

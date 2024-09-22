@@ -1,18 +1,18 @@
 import React, { FC, MutableRefObject, useEffect, useRef } from 'react'
 
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import { useAppSelector } from 'src/store';
+
 import Login from 'src/components/login';
 import Register from 'src/components/register';
-
-import { RootState } from 'src/store';
 
 const CommonAuth: FC<{ type: 'login' | 'register' }> = ({ type }) => {
     const navigate = useNavigate();
 
     const formRef: MutableRefObject<any> = useRef();
 
-    const auth = useSelector((state: RootState) => state.auth);
+    const auth = useAppSelector((state) => state.auth);
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);

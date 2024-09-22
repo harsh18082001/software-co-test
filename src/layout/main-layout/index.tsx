@@ -1,12 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 
-import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Layout, theme } from 'antd';
 import { useWindowSize } from '@uidotdev/usehooks';
 
-import { RootState } from 'src/store';
+import { useAppSelector } from 'src/store';
 
 import SideBar from 'src/layout/main-layout/sidebar';
 import LayoutHeader from 'src/layout/main-layout/header';
@@ -15,12 +14,12 @@ const { Content } = Layout;
 
 const MainLayout: FC = () => {
 
-    const { token: { colorBgContainer, colorBorder, borderRadiusLG } } = theme.useToken();
+    const { token: { colorBgContainer, colorBorder } } = theme.useToken();
     const borderWithBg = { backgroundColor: colorBgContainer, borderColor: colorBorder };
 
     const navigate = useNavigate();
     const { width } = useWindowSize();
-    const auth = useSelector((state: RootState) => state.auth);
+    const auth = useAppSelector((state) => state.auth);
 
     const [collapsed, setCollapsed] = useState(false);
 

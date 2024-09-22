@@ -8,6 +8,7 @@ import Dashboard from 'src/pages/dashboard';
 import Estimate from 'src/pages/estimate';
 import Project from 'src/pages/project';
 import ProjectAdd from "src/pages/project/add";
+import EstimateAdd from "src/pages/estimate/add";
 
 export default createBrowserRouter([
     {
@@ -24,8 +25,11 @@ export default createBrowserRouter([
         children: [
             { path: "/", element: <Dashboard /> },
             { path: "estimate", element: <Estimate /> },
+            { path: "estimate/add", element: <EstimateAdd /> },
+            { path: "estimate/:id", element: <EstimateAdd edit={true} /> },
             { path: 'project', element: <Project />, },
             { path: "project/add", element: <ProjectAdd /> },
+            { path: "project/:id", element: <ProjectAdd edit={true} /> },
         ],
     },
 ]);

@@ -6,5 +6,6 @@
     "DASHBOARD": "Dashboard",
     "PROJECTS": "Projects",
     "ESTIMATES": "Estimates",
-    "ADD_PROJECT": "Add Project"
+    "ADD_PROJECT": "Add Project",
+    "ADD_ESTIMATE": "Add Estimate"
 }

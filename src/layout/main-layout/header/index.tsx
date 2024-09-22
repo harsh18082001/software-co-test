@@ -5,9 +5,8 @@ import { MenuOutlined, SearchOutlined, BulbOutlined, MoonOutlined, } from '@ant-
 
 import { useTranslation } from 'react-i18next';
 import { useWindowSize } from '@uidotdev/usehooks';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { RootState } from 'src/store';
+import { useAppDispatch, useAppSelector } from 'src/store';
 import { THEME_MODES, updateTheme } from 'src/store/slices/theme';
 
 import Profile from 'src/layout/main-layout/header/components/profile';
@@ -18,9 +17,9 @@ const { Header } = Layout;
 const LayoutHeader: FC<any> = ({ borderWithBg, collapsed, setCollapsed }) => {
 
     const { t } = useTranslation();
-    const dispatch = useDispatch();
     const { width } = useWindowSize();
-    const themeState = useSelector((state: RootState) => state.theme);
+    const dispatch = useAppDispatch();
+    const themeState = useAppSelector((state) => state.theme);
 
     const toggleTheme = () => dispatch(updateTheme(themeState.mode === THEME_MODES.LIGHT ? THEME_MODES.DARK : THEME_MODES.LIGHT));
 

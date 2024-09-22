@@ -1,7 +1,10 @@
 import { FC } from 'react';
-import { Form, Input, Button, Checkbox, Typography, theme } from 'antd';
-import { useDispatch } from 'react-redux';
+
 import { Link } from 'react-router-dom';
+
+import { Form, Input, Button, Checkbox, Typography, theme } from 'antd';
+
+import { useAppDispatch } from 'src/store';
 import { login } from 'src/store/slices/auth';
 
 const { Title, Text } = Typography;
@@ -15,7 +18,7 @@ interface FormValues {
 
 const Login: FC<any> = ({ formRef, onFinishFailed }) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const { token: { colorBgContainer } } = theme.useToken();
 
